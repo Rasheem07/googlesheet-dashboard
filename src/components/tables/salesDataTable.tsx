@@ -121,7 +121,8 @@ const SalesDataTable: React.FC = () => {
               key={headerGroupIndex}
               className="bg-gray-200"
             >
-              {headerGroup.headers.map((column, columnIndex) => (
+              {headerGroup.headers.map((column) => (
+                // eslint-disable-next-line react/jsx-key
                 <th
                   {...column.getHeaderProps()}
                   className="px-4 py-2 text-left border-b"
@@ -141,7 +142,8 @@ const SalesDataTable: React.FC = () => {
                 key={rowIndex}
                 className="hover:bg-gray-100"
               >
-                {row.cells.map((cell, cellIndex) => (
+                {row.cells.map((cell) => (
+                  // eslint-disable-next-line react/jsx-key
                   <td
                     {...cell.getCellProps()}
                     className="px-4 py-2 border-b"
