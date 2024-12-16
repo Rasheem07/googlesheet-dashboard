@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+'use client'
 import React from "react";
 import { useTable, Column } from "react-table";
 
@@ -113,20 +114,20 @@ const SalesDataTable: React.FC = () => {
     <div className="overflow-x-auto">
       <table
         {...getTableProps()}
-        className="min-w-full table-auto border-collapse"
+        className="min-w-full table-auto border-collapse dark:bg-sidebar"
       >
-        <thead>
+        <thead className="dark:bg-sidebar">
           {headerGroups.map((headerGroup: any, headerGroupIndex: any) => (
             <tr
               {...headerGroup.getHeaderGroupProps()}
               key={headerGroupIndex}
-              className="bg-gray-200"
+              className="bg-gray-200 dark:bg-sidebar"
             >
               {headerGroup.headers.map((column: any, columnIndex: any) => (
                 <th
                   key={columnIndex}
                   {...column.getHeaderProps()}
-                  className="px-4 py-2 text-left border-b"
+                  className="px-4 py-2 text-left border-b "
                 >
                   {column.render("Header")}
                 </th>
@@ -141,7 +142,7 @@ const SalesDataTable: React.FC = () => {
               <tr
                 {...row.getRowProps()}
                 key={rowIndex}
-                className="hover:bg-gray-100"
+                className="hover:bg-gray-100 dark:hover:bg-sidebar-accent"
               >
                 {row.cells.map((cell: any, cellIndex: any) => (
                   <td
