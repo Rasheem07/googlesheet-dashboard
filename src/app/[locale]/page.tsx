@@ -34,7 +34,7 @@ function Home() {
     orderStatus
   } = useAnalyticsContext();
   const { data, setData } = useWebSocket({
-    url: "ws://google-sheet-backend-production.up.railway.app",
+    url: "wss://google-sheet-backend-production.up.railway.app",
     spreadsheetId: "1BUk3rk7-xZHOSX5G6wGLr2bXkpbnT1dIse6B7GBDwmg",
     range: "DAILY SALES DATA NUBRAS",
   });
