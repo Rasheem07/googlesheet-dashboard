@@ -37,7 +37,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const isDataProcessed = useRef(false);
 
   useEffect(() => {
-    const url = "ws://localhost:5000";
+    const url = "wss://google-sheet-backend-production.up.railway.app"
     const spreadsheetId = "1BUk3rk7-xZHOSX5G6wGLr2bXkpbnT1dIse6B7GBDwmg";
     const range = "DAILY SALES DATA NUBRAS";
 
