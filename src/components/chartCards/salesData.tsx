@@ -25,18 +25,19 @@ import {
   YAxis,
 } from "recharts";
 import { filterSalesByDateRange } from "@/utils/generalFunctions";
+import { useWebSocketContext } from "@/contexts/webSocketContext";
 
 type Props = {};
 
 export default function SalesData({}: Props) {
   const {
-    Data: SheetData,
     selectedDatesRange,
     dateRange,
     orderStatus,
     PaymenetStatus,
     customerLocation,
   } = useAnalyticsContext();
+  const { sheetData: SheetData } = useWebSocketContext();
 
   const startDate = startOfWeek(new Date());
   const endDate = endOfWeek(new Date());
@@ -80,7 +81,7 @@ export default function SalesData({}: Props) {
     );
     return convertGroupedDataToArray(customDateSalesDataGroup);
   }, [customDateSalesData, orderStatus, PaymenetStatus, customerLocation]); // Add customerLocation here
-  
+
   const totalSalesPerMonth = useMemo(() => {
     const filteredData = salesDataForCurrentYear.filter((item) => {
       return (
@@ -104,8 +105,7 @@ export default function SalesData({}: Props) {
     const allTimeSales = groupSalesByPeriod(filteredData, "yyyy");
     return convertGroupedDataToArray(allTimeSales);
   }, [SheetData, orderStatus, PaymenetStatus, customerLocation]);
-  console.log(allTimeSalesArray)
-
+  
   const totalSalesArray = useMemo(() => {
     const filteredData = salesDataForCurrentWeek.filter((item) => {
       return (

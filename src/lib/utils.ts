@@ -36,10 +36,15 @@ export const RANGE_OPTIONS = {
 
 
 export function convertPriceToEnglish(price: string): string {
-  // Step 1: Remove the Arabic currency symbol (د.إ.)
+  // Step 1: Check if price is a valid string
+  if (typeof price !== 'string' || price.trim() === "") {
+    return "0"; // Return "0" or handle as necessary
+  }
+
+  // Step 2: Remove the Arabic currency symbol (د.إ.)
   const priceWithoutSymbol = price.replace(/د\.إ\./g, '').trim();
 
-  // Step 2: Replace Arabic numerals (٠١٢٣٤٥٦٧٨٩) with English numerals (0123456789)
+  // Step 3: Replace Arabic numerals (٠١٢٣٤٥٦٧٨٩) with English numerals (0123456789)
   const arabicToEnglishNumbers: { [key: string]: string } = {
     "٠": "0",
     "١": "1",
@@ -55,6 +60,8 @@ export function convertPriceToEnglish(price: string): string {
 
   const priceInEnglish = priceWithoutSymbol.replace(/[٠١٢٣٤٥٦٧٨٩]/g, (match) => arabicToEnglishNumbers[match as keyof typeof arabicToEnglishNumbers]);
 
-  // Step 3: Replace Arabic comma with English comma or period (as appropriate)
-  return priceInEnglish.replace(/,/g, ''); // You can modify this if you want to handle commas differently
+  // Step 4: Replace Arabic comma with English comma or period (as appropriate)
+  return priceInEnglish.replace(/,/g, ''); // Remove commas if needed, or handle them differently
 }
+
+

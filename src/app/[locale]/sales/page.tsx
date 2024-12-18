@@ -1,12 +1,11 @@
-'use client'
-import SalesDataTable from '@/components/tables/salesDataTable'
-import React from 'react'
+"use client";
+import SalesDataTable from "@/components/tables/salesDataTable";
+import React from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type Props = {}
+type Props = {};
 
-export default function Page({}: Props) {
-  return (
-    <SalesDataTable />
-  )
+export default function SalesPage({}: Props) {
+
+  return <SalesDataTable />;
 }

@@ -38,10 +38,10 @@ export default function Header() {
   const t = useTranslations('analytics');
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+    if (theme === "light") {
+      document.body.classList.remove("dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      document.body.classList.add("dark");
     }
   }, [theme]);
 

@@ -21,11 +21,12 @@ import {
   YAxis,
 } from "recharts";
 import { Info } from "lucide-react";
+import { useWebSocketContext } from "@/contexts/webSocketContext";
 
 type Props = { className: string };
 
 export default function SalesDataProducts({ className }: Props) {
-  const { Data: SheetData } = useAnalyticsContext();
+  const { sheetData: SheetData } = useWebSocketContext();
   const {
     selectedDatesRange,
     dateRange,
@@ -34,6 +35,7 @@ export default function SalesDataProducts({ className }: Props) {
     PaymenetStatus,
     customerLocation,
   } = useAnalyticsContext();
+  
 
   const startDate = startOfWeek(new Date());
   const endDate = endOfWeek(new Date());

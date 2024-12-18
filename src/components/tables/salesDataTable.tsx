@@ -1,162 +1,188 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTable, Column } from "react-table";
-
-interface SalesData {
-  invoiceNo: string;
-  monthAndYear: string;
-  saleDate: string;
-  salesPerson: string;
-  customerLocation: string;
-  orderStatus: string;
-  orderPaymentStatus: string;
-  productQuantity: number;
-  productPrice: number;
-  totalAmount: number;
-  taxAmount: number;
-  taxPercentage: number;
-  balanceAmount: number;
-  deliveryDate: string;
-  paymentCompletedDate: string;
-}
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
+import { MonthlySalesData } from "@/types/salesDataTypes";
+import { getMonthlySalesData } from "@/utils/getMonthlySalesData";
+import { Button } from "../ui/button";
+import { File, Loader2 } from "lucide-react";
+import * as XLSX from "xlsx";
+import { useRouter } from "@/i18n/routing";
+import { useWebSocketContext } from "@/contexts/webSocketContext";
 
 const SalesDataTable: React.FC = () => {
-  // Example Sales Data
-  const data = React.useMemo<SalesData[]>(
+  const contentRef = useRef<HTMLDivElement>(null);
+  const { sheetData: fullData, isComplete } = useWebSocketContext();
+  const [data, setData] = useState<MonthlySalesData[]>([]);
+  const [loading, setloading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {  
+      const salesData = getMonthlySalesData(fullData); // Fetch data
+      setData(salesData); // Set the data
+      setloading(false); // Set loading to false after data is set
+    
+  }, [fullData]);
+
+  const handleExportExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sales Data");
+    const headerCellStyle = {
+      font: { bold: true },
+      fill: { fgColor: { rgb: "4F81BD" } }, // Header background color (blue)
+      alignment: { horizontal: "center", vertical: "center" }, // Center align text
+      border: {
+        top: { style: "thin" },
+        left: { style: "thin" },
+        right: { style: "thin" },
+        bottom: { style: "thin" }, // Add borders around header cells
+      },
+    };
+    // Apply header style to all header cells only if columns are available
+    if (ws["!cols"]) {
+      for (let col = 0; col < ws["!cols"].length; col++) {
+        const cell = ws[XLSX.utils.encode_cell({ r: 0, c: col })];
+
+        if (cell) {
+          cell.s = headerCellStyle;
+        }
+      }
+    }
+
+    // Adding borders to the entire table
+    for (let row = 0; row < data.length; row++) {
+      for (let col = 0; col < Object.keys(data[0]).length; col++) {
+        const cell = ws[XLSX.utils.encode_cell({ r: row + 1, c: col })];
+        if (cell) {
+          if (!cell.s) cell.s = {};
+          cell.s.alignment = { horizontal: "center", vertical: "center" };
+          cell.s = {
+            border: {
+              top: { style: "thin" },
+              left: { style: "thin" },
+              right: { style: "thin" },
+              bottom: { style: "thin" },
+            },
+          };
+        }
+      }
+    }
+
+    XLSX.writeFile(wb, "sales_data.xlsx");
+  };
+
+  const columns = React.useMemo<Column<MonthlySalesData>[]>(
     () => [
-      {
-        invoiceNo: "INV123",
-        monthAndYear: "Dec 2024",
-        saleDate: "2024-12-01",
-        salesPerson: "John Doe",
-        customerLocation: "New York",
-        orderStatus: "Completed",
-        orderPaymentStatus: "Paid",
-        productQuantity: 10,
-        productPrice: 50,
-        totalAmount: 500,
-        taxAmount: 50,
-        taxPercentage: 10,
-        balanceAmount: 450,
-        deliveryDate: "2024-12-05",
-        paymentCompletedDate: "2024-12-03",
-      },
-      {
-        invoiceNo: "INV124",
-        monthAndYear: "Dec 2024",
-        saleDate: "2024-12-02",
-        salesPerson: "Jane Smith",
-        customerLocation: "Los Angeles",
-        orderStatus: "Pending",
-        orderPaymentStatus: "Unpaid",
-        productQuantity: 5,
-        productPrice: 100,
-        totalAmount: 500,
-        taxAmount: 50,
-        taxPercentage: 10,
-        balanceAmount: 450,
-        deliveryDate: "2024-12-06",
-        paymentCompletedDate: "N/A",
-      },
-      // Add more rows as needed
+      { Header: "Month and Year", accessor: "monthAndYear" },
+      { Header: "Total Invoices", accessor: "totalInvoices" },
+      { Header: "Product Quantity", accessor: "totalQuantity" },
+      { Header: "Product Price", accessor: "totalProductPrice" },
+      { Header: "Total Amount", accessor: "totalAmount" },
+      { Header: "Tax Amount", accessor: "totalTaxAmount" },
+      { Header: "Balance Amount", accessor: "totalBalanceAmount" },
+      { Header: "Total Visa Amount", accessor: "totalVisaPayment" },
+      { Header: "Total Bank Transfer", accessor: "totalBankTransfer" },
+      { Header: "Total Cash Payments", accessor: "totalCashPayment" },
+      { Header: "Total Advance Payments", accessor: "totalAdvanceAmount" },
     ],
     []
   );
 
-  // Define columns for each category
-  const columns = React.useMemo<Column<SalesData>[]>(
-    () => [
-      // Customer Data Columns
-      {
-        Header: "Customer Data",
-        columns: [
-          { Header: "Invoice No", accessor: "invoiceNo" },
-          { Header: "Sale Date", accessor: "saleDate" },
-          { Header: "Sales Person", accessor: "salesPerson" },
-          { Header: "Customer Location", accessor: "customerLocation" },
-        ],
-      },
-      // Transactions Data Columns
-      {
-        Header: "Transactions Data",
-        columns: [
-          { Header: "Order Status", accessor: "orderStatus" },
-          { Header: "Order Payment Status", accessor: "orderPaymentStatus" },
-          { Header: "Total Amount", accessor: "totalAmount" },
-          { Header: "Tax Amount", accessor: "taxAmount" },
-          { Header: "Tax %", accessor: "taxPercentage" },
-          { Header: "Balance Amount", accessor: "balanceAmount" },
-          {
-            Header: "Payment Completed Date",
-            accessor: "paymentCompletedDate",
-          },
-        ],
-      },
-      // Sales Data Columns
-      {
-        Header: "Sales Data",
-        columns: [
-          { Header: "Product Quantity", accessor: "productQuantity" },
-          { Header: "Product Price", accessor: "productPrice" },
-          { Header: "Delivery Date", accessor: "deliveryDate" },
-        ],
-      },
-    ],
-    []
-  );
-
-  // Initialize the table
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<SalesData>({ columns, data });
+    useTable({ columns, data });
 
   return (
-    <div className="overflow-x-auto">
-      <table
-        {...getTableProps()}
-        className="min-w-full table-auto border-collapse"
-      >
-        <thead>
-          {headerGroups.map((headerGroup, headerGroupIndex) => (
-            <tr
-              {...headerGroup.getHeaderGroupProps()}
-              key={headerGroupIndex}
-              className="bg-gray-200"
+    <Card className="m-5">
+      <CardHeader className="flex flex-row pb-8 items-center justify-between">
+        <div className="space-y-1.5">
+          <CardTitle className="text-2xl">
+            Sales Data according to months
+          </CardTitle>
+          <CardDescription>
+            Analyze monthly sales trends to gain insights into performance and
+            seasonal patterns.
+          </CardDescription>
+        </div>
+        <Button
+          onClick={handleExportExcel}
+          variant="ghost"
+          className="border font-semibold flex items-center gap-x-1 border-gray-300"
+        >
+          <File className="stroke-2" /> Export as xlsx
+        </Button>
+      </CardHeader>
+      <CardContent className="p-6 pt-0">
+        <div
+          className="overflow-x-scroll max-w-full bg-card dark:bg-card"
+          ref={contentRef}
+        >
+          {!isComplete || loading ? (
+            <div className="w-full flex justify-center my-48">
+              <div className="flex flex-col items-center gap-y-4">
+                <Loader2 className="animate-spin h-6 w-6" />
+                <p>Data is being loaded...</p>
+              </div>
+            </div>
+          ) : (
+            <table
+              {...getTableProps()}
+              className="w-full border-collapse overflow-x-scroll"
             >
-              {headerGroup.headers.map((column) => (
-                // eslint-disable-next-line react/jsx-key
-                <th
-                  {...column.getHeaderProps()}
-                  className="px-4 py-2 text-left border-b"
-                >
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, rowIndex) => {
-            prepareRow(row);
-            return (
-              <tr
-                {...row.getRowProps()}
-                key={rowIndex}
-                className="hover:bg-gray-100"
-              >
-                {row.cells.map((cell) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <td
-                    {...cell.getCellProps()}
-                    className="px-4 py-2 border-b"
-                  >
-                    {cell.render("Cell")}
-                  </td>
+              <thead>
+                {headerGroups.map((headerGroup, i) => (
+                  <tr {...headerGroup.getHeaderGroupProps()} key={i}>
+                    {headerGroup.headers.map((column) => (
+                      <th
+                        {...column.getHeaderProps()}
+                        key={column.id}
+                        className="border-b w-full px-5 whitespace-nowrap py-2 text-left"
+                      >
+                        {column.render("Header")}
+                      </th>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {rows.map((row, i) => {
+                  prepareRow(row);
+                  return (
+                    <tr
+                      className="cursor-pointer"
+                      {...row.getRowProps()}
+                      key={i}
+                      onClick={() => {
+                        const encodedMonthAndYear = encodeURIComponent(
+                          row.values.monthAndYear
+                        );
+                        console.log("Redirecting to:", encodedMonthAndYear);
+                        router.push(`/sales/${encodedMonthAndYear}`);
+                      }}
+                    >
+                      {row.cells.map((cell) => (
+                        <td
+                          {...cell.getCellProps()}
+                          key={cell.column.id}
+                          className="border-b text-center whitespace-nowrap p-5"
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

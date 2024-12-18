@@ -1,4 +1,3 @@
-
 import React, { useMemo } from "react";
 import { groupByProductSection } from "@/utils/productSection";
 import { useAnalyticsContext } from "@/contexts/analyticsContext";
@@ -12,6 +11,7 @@ import {
   Legend,
 } from "recharts";
 import { filterSalesByDateRange } from "@/utils/generalFunctions";
+import { useWebSocketContext } from "@/contexts/webSocketContext";
 
 // Define types explicitly for the props and return types
 interface ProductSectionSalesData {
@@ -22,12 +22,12 @@ interface ProductSectionSalesData {
   salesPercentage: number;
 }
 
-type Props = {className?: string};
+type Props = { className?: string };
 
-export default function SalesDataByProductSection({className}: Props) {
-  const { Data: SheetData } = useAnalyticsContext();
-  const {selectedDatesRange, dateRange} = useAnalyticsContext();
-  
+export default function SalesDataByProductSection({ className }: Props) {
+  const { sheetData: SheetData } = useWebSocketContext();
+
+  const { selectedDatesRange, dateRange } = useAnalyticsContext();
 
   // UseMemo hooks to handle the date calculations inside the hook
   const startDate = useMemo(() => new Date("2024-12-08"), []);
@@ -65,11 +65,7 @@ export default function SalesDataByProductSection({className}: Props) {
   }, [SheetData, startofYear, endofYear]);
 
   const customDateSalesData = useMemo(() => {
-    return filterSalesByDateRange(
-      SheetData,
-      dateRange.from!,
-      dateRange.to!
-    );
+    return filterSalesByDateRange(SheetData, dateRange.from!, dateRange.to!);
   }, [SheetData, dateRange]);
 
   // Determine which sales data to use based on the selected time range

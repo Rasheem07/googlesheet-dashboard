@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +19,8 @@ import { enGB, ar } from "date-fns/locale"; // Import locales from date-fns
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Props = {};
 
-export default function DateSelector({}: Props) {
+
+const DateSelector = memo(function DateSelector({}: Props) {
   const { dateRange, setDateRange, setselectedDatesRange } =
     useAnalyticsContext();
   const [selectedTime, setSelectedTime] = useState("month");
@@ -40,7 +41,7 @@ export default function DateSelector({}: Props) {
   const t = useTranslations("analytics");
 
   // Get the current locale (this could be dynamic based on your setup)
-  const currentLocale = t("languages.arabic") === "arabic" ? enGB : ar; // Using Arabic or English locale from date-fns
+  const currentLocale = t("languages.arabic") === "arabic" ? ar : enGB; // Using Arabic or English locale from date-fns
 
   return (
     <DropdownMenu>
@@ -88,4 +89,7 @@ export default function DateSelector({}: Props) {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+})
+
+
+export default DateSelector;

@@ -19,12 +19,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useWebSocketContext } from "@/contexts/webSocketContext";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Props = {};
 
 export default function SalesDataPersons({}: Props) {
-  const { Data: SheetData } = useAnalyticsContext();
+    const { sheetData: SheetData } = useWebSocketContext();
+
   const { selectedDatesRange, dateRange, orderStatus, PaymenetStatus , customerLocation} =
     useAnalyticsContext();
 

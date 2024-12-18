@@ -1,7 +1,8 @@
 type ParsedDate = Date; // Assuming parsedDate is a Date type (you can adjust this based on how parsedDate is defined)
 
 type Invoice = {
-  saleDate: ParsedDate;
+  saleDate: ParsedDate | string;
+  monthAndYear: string;
   invoiceNo: number;
   nubrasBranch: string;
   orderTakenStatus: string;
@@ -25,6 +26,21 @@ type Invoice = {
   paymenetCompletedDate: ParsedDate;
 };
 
+type MonthlySalesData = {
+  totalQuantity: number;
+  totalProductPrice: number;
+  totalAmount: number;
+  totalTaxAmount: number;
+  totalBalanceAmount: number;
+  totalVisaPayment: number;
+  totalBankTransfer: number;
+  totalCashPayment: number;
+  totalAdvanceAmount: number;
+  totalInvoices: number;
+  monthAndYear: string;
+};
+
+
 type ChartDataForSales = {
   date: string;
   quantity: number;
@@ -38,4 +54,4 @@ type ChartDataForSales = {
   customerLocation: string;
 };
 
-export { type Invoice, type ChartDataForSales };
+export { type Invoice, type ChartDataForSales, type MonthlySalesData };
