@@ -13,11 +13,11 @@ import { Button } from "../ui/button";
 import { File, Loader2 } from "lucide-react";
 import * as XLSX from "xlsx";
 import { useRouter } from "@/i18n/routing";
-import { useWebSocketContext } from "@/contexts/webSocketContext";
+import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 
 const SalesDataTable: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const { sheetData: fullData, isComplete } = useWebSocketContext();
+  const { sheetData: fullData, isComplete } = useGoogleSheetsContext();
   const [data, setData] = useState<MonthlySalesData[]>([]);
   const [loading, setloading] = useState(true);
   const router = useRouter();

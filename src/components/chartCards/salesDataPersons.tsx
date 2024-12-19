@@ -19,13 +19,13 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useWebSocketContext } from "@/contexts/webSocketContext";
+import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Props = {};
 
 export default function SalesDataPersons({}: Props) {
-    const { sheetData: SheetData } = useWebSocketContext();
+    const { sheetData: SheetData } = useGoogleSheetsContext();
 
   const { selectedDatesRange, dateRange, orderStatus, PaymenetStatus , customerLocation} =
     useAnalyticsContext();
@@ -139,9 +139,13 @@ export default function SalesDataPersons({}: Props) {
           margin={{ top: 5, right: 30, bottom: 5, left: marginLeft }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted))" />
-          <XAxis dataKey="salesPerson" />
+          <XAxis dataKey="salesPerson" 
+            tick={false} // Disables X-axis ticks
+            className="text-gray-800 dark:text-zinc-100 text-lg" 
+            label="Sales person" 
+            />
           <YAxis />
-          <Tooltip />
+          <Tooltip content={customTooltip} />
           <Legend />
           <Bar dataKey="averageSales" fill="#8884d8" />
           <Bar dataKey="totalAmount" fill="#82ca9d" />
@@ -151,3 +155,34 @@ export default function SalesDataPersons({}: Props) {
     </ChartCard>
   );
 }
+
+ // Custom tooltip content
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const customTooltip = ({ payload, label }: any) => {
+    if (payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="custom-tooltip p-4 bg-sidebar dark:bg-sidebar dark:text-white border border-gray-200 rounded-lg shadow-xl max-w-[350px]">
+          <p className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+            <strong>Sales person: </strong>
+            {label}
+          </p>
+          <div className="mt-2 space-y-2">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              <strong className="text-[#8884d8]">averageSales: </strong>
+              {data.averageSales}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              <strong className="text-[#82ca9d]">totalAmount: </strong>
+              {data.totalAmount}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              <strong className="text-[#ffc658]">Number of Sales: </strong>
+              {data.numberOfSales}
+            </p>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };

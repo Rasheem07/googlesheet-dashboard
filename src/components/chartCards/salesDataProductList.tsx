@@ -21,12 +21,12 @@ import {
   YAxis,
 } from "recharts";
 import { Info } from "lucide-react";
-import { useWebSocketContext } from "@/contexts/webSocketContext";
+import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 
 type Props = { className: string };
 
 export default function SalesDataProducts({ className }: Props) {
-  const { sheetData: SheetData } = useWebSocketContext();
+  const { sheetData: SheetData } = useGoogleSheetsContext();
   const {
     selectedDatesRange,
     dateRange,
@@ -232,6 +232,7 @@ export default function SalesDataProducts({ className }: Props) {
             dataKey="productList"
             tick={false} // Disables X-axis ticks
             className="text-gray-800 text-lg"
+            label="Product list"
           />
           <YAxis />
           <Tooltip content={customTooltip} />

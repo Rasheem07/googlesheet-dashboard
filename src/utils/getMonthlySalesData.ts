@@ -3,7 +3,7 @@ import { parse } from "date-fns";
 
 export const getMonthlySalesData = (salesData: Invoice[]): MonthlySalesData[] => {
   const result = salesData.reduce((acc, item) => {
-    const monthAndYear = (item.monthAndYear).trim();
+    const monthAndYear = (item.monthAndYear);
     if (!acc[monthAndYear]) {
       acc[monthAndYear] = {
         monthAndYear: monthAndYear,

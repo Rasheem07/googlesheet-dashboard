@@ -41,7 +41,7 @@ const DateSelector = memo(function DateSelector({}: Props) {
   const t = useTranslations("analytics");
 
   // Get the current locale (this could be dynamic based on your setup)
-  const currentLocale = t("languages.arabic") === "arabic" ? ar : enGB; // Using Arabic or English locale from date-fns
+  const currentLocale = t("languages.arabic") === "arabic" ? enGB : ar; // Using Arabic or English locale from date-fns
 
   return (
     <DropdownMenu>

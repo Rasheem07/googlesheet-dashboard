@@ -25,7 +25,7 @@ import {
   YAxis,
 } from "recharts";
 import { filterSalesByDateRange } from "@/utils/generalFunctions";
-import { useWebSocketContext } from "@/contexts/webSocketContext";
+import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 
 type Props = {};
 
@@ -37,7 +37,7 @@ export default function SalesData({}: Props) {
     PaymenetStatus,
     customerLocation,
   } = useAnalyticsContext();
-  const { sheetData: SheetData } = useWebSocketContext();
+  const { sheetData: SheetData } = useGoogleSheetsContext();
 
   const startDate = startOfWeek(new Date());
   const endDate = endOfWeek(new Date());
@@ -95,11 +95,12 @@ export default function SalesData({}: Props) {
   }, [salesDataForCurrentYear, orderStatus, PaymenetStatus, customerLocation]);
 
   const allTimeSalesArray = useMemo(() => {
+    console.log('sheet data passed is', SheetData)
     const filteredData = SheetData.filter((item) => {
       return (
         item.orderStatus === orderStatus &&
         item.paymentStatus === PaymenetStatus &&
-        (customerLocation === "" || item.customerLocation === customerLocation)
+        (customerLocation === "" || item.customerLocation.trimEnd() === customerLocation)
       );
     });
     const allTimeSales = groupSalesByPeriod(filteredData, "yyyy");
@@ -111,7 +112,7 @@ export default function SalesData({}: Props) {
       return (
         item.orderStatus === orderStatus &&
         item.paymentStatus === PaymenetStatus &&
-        (customerLocation === "" || item.customerLocation === customerLocation)
+        (customerLocation === "" || item.customerLocation.trimEnd() === customerLocation)
       );
     });
     const totalSalesPerDay = groupSalesByPeriod(filteredData, "yyyy-MM-dd");

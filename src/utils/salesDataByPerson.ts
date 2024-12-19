@@ -40,7 +40,6 @@ export const filterSalesAmountBySalesPerson = (
   numberOfSales: number;
 }[] => {
   const filteredData = filterSalesByDateRange(salesData, startDate, endDate);
-
   const filteredDataForOrderStatus = filteredData.filter((item) => {
     return (
       item.orderStatus === orderStatus &&

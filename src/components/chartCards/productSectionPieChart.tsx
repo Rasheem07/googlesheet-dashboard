@@ -11,7 +11,7 @@ import {
   Legend,
 } from "recharts";
 import { filterSalesByDateRange } from "@/utils/generalFunctions";
-import { useWebSocketContext } from "@/contexts/webSocketContext";
+import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 
 // Define types explicitly for the props and return types
 interface ProductSectionSalesData {
@@ -25,7 +25,7 @@ interface ProductSectionSalesData {
 type Props = { className?: string };
 
 export default function SalesDataByProductSection({ className }: Props) {
-  const { sheetData: SheetData } = useWebSocketContext();
+  const { sheetData: SheetData } = useGoogleSheetsContext();
 
   const { selectedDatesRange, dateRange } = useAnalyticsContext();
 

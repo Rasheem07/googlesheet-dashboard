@@ -13,7 +13,7 @@ import PaymentStatusButton from "@/components/buttons/PaymenetStatus";
 import CustomerLocationsButton from "@/components/buttons/customerLocation";
 
 import { useAnalyticsContext } from "@/contexts/analyticsContext";
-import { useWebSocketContext } from "@/contexts/webSocketContext";
+import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 import { filterSalesByDateRange } from "@/utils/generalFunctions";
 import { Invoice } from "@/types/salesDataTypes";
 
@@ -24,7 +24,7 @@ function Home() {
   const [TotalRevenue, setTotalRevenue] = useState(0);
   const [TotalExpenses, setTotalExpenses] = useState(0);
   const { dateRange, selectedDatesRange, orderStatus } = useAnalyticsContext();
-  const { sheetData, isComplete } = useWebSocketContext();
+  const { sheetData, isComplete } = useGoogleSheetsContext();
   const renderCount = useRef(1);
 
   useEffect(() => {
@@ -127,8 +127,8 @@ function Home() {
         <CustomerLocationsButton />
       </div>
       <OverviewData
-        expenses={Number(TotalExpenses.toFixed(0))}
-        totalRevenue={Number(TotalRevenue.toFixed(2))}
+        expenses={Number(TotalExpenses)}
+        totalRevenue={Number(TotalRevenue)}
       />
       <Charts />
     </div>
@@ -155,13 +155,13 @@ const OverviewData = ({
       <OverviewCard
         title="Revenue"
         description="Total revenue this year"
-        value={totalRevenue}
+        value={Number(totalRevenue.toFixed(2))}
         icon={TrendingUp}
       />
       <OverviewCard
         title="Expenses"
         description="Total expenses this year"
-        value={expenses}
+        value={Number(expenses.toFixed(2))}
         icon={TrendingDown}
       />
     </div>

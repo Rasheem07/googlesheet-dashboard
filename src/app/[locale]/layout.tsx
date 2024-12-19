@@ -11,7 +11,6 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
-import { WebSocketProvider } from "@/contexts/webSocketContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,24 +49,22 @@ async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} dark antialiased transition-colors`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <MainContextProvider>
-            <SidebarProvider className="flex">
-              <AnalyticsContextProvider>
-                <WebSocketProvider>
-                  <AppSidebar />
-                  <main className="w-full min-w-screen sm:min-w-0 relative">
-                    <div className="sm:hidden absolute top-0 left-0 py-3 px-2">
-                      <SidebarTrigger />
-                    </div>
-                    <Header />
-                    {children}
-                  </main>
-                </WebSocketProvider>
-              </AnalyticsContextProvider>
-            </SidebarProvider>
-          </MainContextProvider>
-        </NextIntlClientProvider>
+            <NextIntlClientProvider messages={messages}>
+              <MainContextProvider>
+                <SidebarProvider className="flex">
+                  <AnalyticsContextProvider>
+                    <AppSidebar />
+                    <main className="w-full min-w-screen sm:min-w-0 relative">
+                      <div className="sm:hidden absolute top-0 left-0 py-3 px-2">
+                        <SidebarTrigger />
+                      </div>
+                      <Header />
+                      {children}
+                    </main>
+                  </AnalyticsContextProvider>
+                </SidebarProvider>
+              </MainContextProvider>
+            </NextIntlClientProvider>
       </body>
     </html>
   );

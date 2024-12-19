@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { File, Loader2 } from "lucide-react";
 import * as XLSX from "xlsx";
 import { format, parse } from "date-fns";
-import { useWebSocketContext } from "@/contexts/webSocketContext";
+import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SalesDataTableForDaily: React.FC = ({ params }: any) => {
@@ -21,7 +21,7 @@ const SalesDataTableForDaily: React.FC = ({ params }: any) => {
   const monthAndYear = decodeURIComponent(param?.monthAndYear);
   const [loading, setloading] = useState(true)
   const contentRef = useRef<HTMLDivElement>(null);
-  const { sheetData: fullData, isComplete } = useWebSocketContext();
+  const { sheetData: fullData, isComplete } = useGoogleSheetsContext();
   const [data, setData] = useState<Invoice[]>([]);
 
   const handleExportExcel = () => {
