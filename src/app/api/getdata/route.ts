@@ -7,7 +7,13 @@ import { Invoice } from "@/types/salesDataTypes";
 import Redis from "ioredis";
 import zlib from "zlib";
 
-const redis = new Redis();
+const redis = new Redis({
+  username: 'default',
+  password: 'xoXIbbStKTRlLixUjkryALh7LQ34WY5O',
+  host: 'redis-13079.c264.ap-south-1-1.ec2.redns.redis-cloud.com',
+  port: 13079,
+  tls: {}, // If SSL/TLS is required
+});
 
 export async function GET(req: NextRequest) {
   try {
