@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DollarSign, Loader2, TrendingDown, TrendingUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import { endOfWeek, endOfYear, startOfWeek, startOfYear } from "date-fns";
@@ -168,4 +168,4 @@ const OverviewData = ({
   );
 };
 
-export default Home;
+export default React.memo(Home);

@@ -72,7 +72,7 @@ const juniorKidsSection = [
 
 
 
-export default function ProductListButton({}: Props) {
+function ProductListButton({}: Props) {
   const [options, setoptions] = useState<string[]>([]);
   const { ProductCategory } = useAnalyticsContext();
   
@@ -104,3 +104,5 @@ export default function ProductListButton({}: Props) {
     </Select>
   );
 }
+
+export default React.memo(ProductListButton);

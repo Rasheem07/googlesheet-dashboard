@@ -24,7 +24,7 @@ interface ProductSectionSalesData {
 
 type Props = { className?: string };
 
-export default function SalesDataByProductSection({ className }: Props) {
+function SalesDataByProductSection({ className }: Props) {
   const { sheetData: SheetData } = useGoogleSheetsContext();
 
   const { selectedDatesRange, dateRange } = useAnalyticsContext();
@@ -175,3 +175,5 @@ export default function SalesDataByProductSection({ className }: Props) {
     </ChartCard>
   );
 }
+
+export default React.memo(SalesDataByProductSection);

@@ -186,4 +186,4 @@ const SalesDataTable: React.FC = () => {
   );
 };
 
-export default SalesDataTable;
+export default React.memo(SalesDataTable);

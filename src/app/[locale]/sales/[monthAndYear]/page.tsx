@@ -180,7 +180,7 @@ const SalesDataTableForDaily: React.FC = ({ params }: any) => {
           ref={contentRef}
         >
             {loading ? (
-            <div className="w-full flex justify-center my-24">
+            <div className="w-full flex justify-center my-48">
               <div className="flex flex-col items-center gap-y-4">
                 <Loader2 className="animate-spin h-6 w-6" />
                 <p>Data is being loaded...</p>
@@ -233,4 +233,4 @@ const SalesDataTableForDaily: React.FC = ({ params }: any) => {
   );
 };
 
-export default SalesDataTableForDaily;
+export default React.memo(SalesDataTableForDaily);

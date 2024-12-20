@@ -10,7 +10,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Button } from "./ui/button";
 import { useMainContext } from "@/contexts/mainContext";
 import { Lightbulb, Moon } from "lucide-react";
 import {
@@ -22,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import RefetchProgressDialog from "./progressBar";
 
 const playfair = Roboto({
   subsets: ["latin"],
@@ -110,12 +110,7 @@ export default function Header() {
         </button>
 
         {/* Button */}
-        <Button
-          variant={"default"}
-          className="bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 text-white hover:bg-blue-600"
-        >
-          {t('buttons.getLatest')}
-        </Button>
+        <RefetchProgressDialog />
       </div>
     </div>
   );

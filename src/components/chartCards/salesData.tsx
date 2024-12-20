@@ -29,7 +29,7 @@ import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 
 type Props = {};
 
-export default function SalesData({}: Props) {
+function SalesData({}: Props) {
   const {
     selectedDatesRange,
     dateRange,
@@ -185,3 +185,4 @@ export default function SalesData({}: Props) {
     </ChartCard>
   );
 }
+export default React.memo(SalesData);

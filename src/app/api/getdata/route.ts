@@ -1,46 +1,44 @@
 // pages/api/getGoogleSheetData.ts (Next.js 13 API Route)
 
-import { NextRequest, NextResponse } from "next/server"; // for Next.js 13 with App Directory
+import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
-import {
-  convertToObjectArray,
-  flattenSalesData,
-} from "@/utils/generalFunctions";
+import { convertToObjectArray, flattenSalesData } from "@/utils/generalFunctions";
 import { Invoice } from "@/types/salesDataTypes";
 import Redis from "ioredis";
+import zlib from "zlib";
 
 const redis = new Redis();
 
 export async function GET(req: NextRequest) {
   try {
-    console.log('present here')
     // Extract the query parameters correctly for Next.js 13
     const url = new URL(req.url);
     const spreadsheetId = url.searchParams.get("spreadsheetId");
     const range = url.searchParams.get("range");
 
-    console.time("redis")
-    const redisCache = await redis.get(
-      `spreadsheet:${spreadsheetId}[${range}]`
-    );
+    console.time("redis");
+    const redisCache = await redis.get(`spreadsheet:${spreadsheetId}[${range}]`);
     if (redisCache) {
-      const parsedData = JSON.parse(redisCache);
-      console.timeEnd("redis")
-      return NextResponse.json(parsedData, { status: 200 });
+      console.timeEnd("redis");
+
+      const compressedData = zlib.gzipSync(redisCache);
+      const headers = new Headers({
+        'Content-Type': 'application/json',
+        'Content-Encoding': 'gzip'
+      });
+      return new Response(compressedData, {
+        status: 200,
+        headers: headers,
+      });
     }
 
     if (!spreadsheetId || !range) {
-      return NextResponse.json(
-        { error: "Missing required parameters" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 
     console.time("google sheet api time");
     // Load Google credentials from environment variables
-    const googleCredentials = JSON.parse(
-      process.env.GOOGLE_CREDENTIALS as string
-    );
+    const googleCredentials = JSON.parse(process.env.GOOGLE_CREDENTIALS as string);
 
     // Set up GoogleAuth with the loaded credentials
     const auth = new google.auth.GoogleAuth({
@@ -70,18 +68,25 @@ export async function GET(req: NextRequest) {
     // Process the data
     const processedData = flattenSalesData(convertedArray) as Invoice[];
 
-    await redis.set(
-      `spreadsheet:${spreadsheetId}[${range}]`,
-      JSON.stringify(processedData)
-    );
+    await redis.set(`spreadsheet:${spreadsheetId}[${range}]`, JSON.stringify(processedData));
     console.timeEnd("Data processing time");
-    // Send back the processed data
-    return NextResponse.json(processedData, { status: 200 });
+
+    // Prepare the response data
+    const responseData = JSON.stringify(processedData);
+    const compressedData = zlib.gzipSync(responseData);
+
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      'Content-Encoding': 'gzip'
+    });
+
+    return new Response(compressedData, {
+      status: 200,
+      headers: headers,
+    });
+
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Error retrieving data from Google Sheets" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Error retrieving data from Google Sheets" }, { status: 500 });
   }
 }

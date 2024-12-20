@@ -24,7 +24,7 @@ import { useGoogleSheetsContext } from "@/contexts/googlesheetContext";
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Props = {};
 
-export default function SalesDataPersons({}: Props) {
+function SalesDataPersons({}: Props) {
     const { sheetData: SheetData } = useGoogleSheetsContext();
 
   const { selectedDatesRange, dateRange, orderStatus, PaymenetStatus , customerLocation} =
@@ -186,3 +186,5 @@ export default function SalesDataPersons({}: Props) {
     }
     return null;
   };
+
+  export default React.memo(SalesDataPersons);

@@ -27,12 +27,13 @@ import { NavUser } from "./nav-user";
 import { useState } from "react";
 import { SpreadsheetSwitcher } from "./speadsheet-switcher";
 import { useLocale } from "next-intl";
+import Link from "next/link";
 
 // Menu items
 const items = [
   { title: "Analytics", url: "/", icon: ChartLine },
   { title: "Sales", url: "/sales", icon: Scale3d },
-  { title: "Products", url: "/en/products", icon: Box },
+  { title: "Products", url: "/products", icon: Box },
   { title: "Team", url: "#", icon: Group },
   { title: "tools", url: "#", icon: Hammer },
   { title: "Settings", url: "#", icon: Settings },
@@ -88,10 +89,10 @@ export function AppSidebar() {
                       isActive === item.title || item.title === "Dashboard"
                     }
                   >
-                    <a href={`/${locale}/${item.url}`}>
+                    <Link prefetch href={`/${locale}/${item.url}`}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

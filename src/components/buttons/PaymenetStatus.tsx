@@ -7,12 +7,13 @@ import {
   } from "@/components/ui/select";
 import { useAnalyticsContext } from "@/contexts/analyticsContext";
 import { useTranslations } from "next-intl";
+import React from 'react';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   type Props = {}
   
   
-  export default function PaymentStatusButton({}: Props) {
+function PaymentStatusButton({}: Props) {
    
     const {PaymenetStatus, setPaymenetStatus} = useAnalyticsContext();
     const t = useTranslations("analytics");
@@ -37,3 +38,4 @@ import { useTranslations } from "next-intl";
     );
   }
   
+  export default React.memo(PaymentStatusButton);

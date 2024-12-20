@@ -13,7 +13,7 @@ const CategoryOptions = [
   "NUBRAS JUNIOR KID'S SECTION",
 ];
 
-export default function ProductCategoryButton({}: Props) {
+function ProductCategoryButton({}: Props) {
   const { ProductCategory, setProductCategory } = useAnalyticsContext();
   const t = useTranslations('analytics') || { 'buttons': { 'default': 'Loading' } };
 
@@ -35,3 +35,5 @@ export default function ProductCategoryButton({}: Props) {
     </Select>
   );
 }
+
+export default React.memo(ProductCategoryButton);

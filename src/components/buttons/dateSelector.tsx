@@ -58,8 +58,8 @@ const DateSelector = memo(function DateSelector({}: Props) {
               "buttons.customDate"
             )} - ${dateRange.from?.toLocaleDateString()} to ${dateRange.to?.toLocaleDateString()}`}
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[180px]">
-        <DropdownMenuItem onClick={() => handleTimeSelection("week")}>
+      <DropdownMenuContent className="w-[180px] cursor-pointer">
+        <DropdownMenuItem className="cursor-pointer" onClick={() => handleTimeSelection("week")}>
           {t("buttons.currentWeek")}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleTimeSelection("month")}>
@@ -92,4 +92,4 @@ const DateSelector = memo(function DateSelector({}: Props) {
 })
 
 
-export default DateSelector;
+export default React.memo(DateSelector);

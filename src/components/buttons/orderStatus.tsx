@@ -7,11 +7,12 @@ import {
 } from "@/components/ui/select";
 import { useAnalyticsContext } from "@/contexts/analyticsContext";
 import { useTranslations } from "next-intl";
+import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type Props = {};
 
-export default function OrderStatusButton({}: Props) {
+function OrderStatusButton({}: Props) {
   const { orderStatus, setorderStatus } = useAnalyticsContext();
   const t = useTranslations("analytics");
 
@@ -27,3 +28,5 @@ export default function OrderStatusButton({}: Props) {
     </Select>
   );
 }
+
+export default React.memo(OrderStatusButton);
