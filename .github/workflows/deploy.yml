@@ -20,7 +20,7 @@ jobs:
 
     - name: Deploy to VM
       run: |
-        ssh -o StrictHostKeyChecking=no LENOVO@34.18.97.231 "
+        ssh -o StrictHostKeyChecking=no LENOVO@34.18.97.231 
           cd /home/LENOVO/googlesheet-dashboard &&
           git pull origin main &&
           npm install &&
