@@ -3,7 +3,11 @@
 
 import Redis from "ioredis";
 
-const redis = new Redis();
+const redis = new Redis({
+  host: '34.18.97.231',
+  port: 6379,
+  connectTimeout: 100000
+});
 
 // Server action that handles cache deletion and refetching logic
 export async function revalidateData(spreadsheetId: string, range: string) {

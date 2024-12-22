@@ -1,0 +1,28 @@
+name: Deploy to VM
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to deploy from (e.g., 'main' or 'master')
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment for running the job
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # This checks out the code from GitHub repository
+
+    - name: Set up SSH key
+      uses: webfactory/ssh-agent@v0.5.3  # This will add the private SSH key for authentication
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # This is the secret you stored in GitHub
+
+    - name: Deploy to VM
+      run: |
+        ssh -o StrictHostKeyChecking=no LENOVO@34.18.97.231 "
+          cd /home/LENOVO/googlesheet-dashboard &&
+          git pull origin main &&
+          npm install &&
+          npm run build &&
+          pm2 restart nextjs-app"

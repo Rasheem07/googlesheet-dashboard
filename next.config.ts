@@ -1,4 +1,3 @@
-// filepath: /c:/Users/LENOVO/OneDrive/Desktop/tech/sheets project/client/next.config.ts
 import createNextIntlPlugin from 'next-intl/plugin';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { NextConfig } from 'next';
@@ -12,19 +11,20 @@ const bundleAnalyzer = withBundleAnalyzer({
 const nextConfig: NextConfig = {
   // Your existing Next.js configuration
   compress: true,
-  // headers: async () => {
-  //   return [
-  //     {
-  //       source: '/(.*)',
-  //       headers: [
-  //         {
-  //           key: 'Cache-Control',
-  //           value: 'public, max-age=31536000, immutable',
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
+  headers: async () => {
+    return [
+      // Cache everything except src/app/api and src/actions
+      {
+        source: '/(.*)',  // Matches all routes
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',  // Cache for 1 year
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default bundleAnalyzer(withNextIntl(nextConfig));

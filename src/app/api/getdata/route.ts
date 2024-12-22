@@ -8,11 +8,9 @@ import Redis from "ioredis";
 import zlib from "zlib";
 
 const redis = new Redis({
-  username: 'default',
-  password: 'xoXIbbStKTRlLixUjkryALh7LQ34WY5O',
-  host: 'redis-13079.c264.ap-south-1-1.ec2.redns.redis-cloud.com',
-  port: 13079,
-  tls: {}, // If SSL/TLS is required
+  host: '34.18.97.231',
+  port: 6379,
+  connectTimeout: 100000
 });
 
 export async function GET(req: NextRequest) {

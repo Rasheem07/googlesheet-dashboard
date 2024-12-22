@@ -5,10 +5,10 @@ import {
   ChartLine,
   Command,
   GalleryVerticalEnd,
-  Group,
   Hammer,
-  Scale3d,
   Settings,
+  ShoppingCart,
+  Users,
 } from "lucide-react";
 import {
   Sidebar,
@@ -32,9 +32,9 @@ import Link from "next/link";
 // Menu items
 const items = [
   { title: "Analytics", url: "/", icon: ChartLine },
-  { title: "Sales", url: "/sales", icon: Scale3d },
+  { title: "Sales", url: "/sales", icon: ShoppingCart },
   { title: "Products", url: "/products", icon: Box },
-  { title: "Team", url: "#", icon: Group },
+  { title: "Team", url: "/team", icon: Users },
   { title: "tools", url: "#", icon: Hammer },
   { title: "Settings", url: "#", icon: Settings },
 ];

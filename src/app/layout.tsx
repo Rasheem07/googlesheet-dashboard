@@ -1,4 +1,4 @@
-import { GoogleSheetsProvider } from "@/contexts/googlesheetContext";
+
 import ReactQueryProvider from "@/contexts/reactQueryProvider";
 export default function RootLayout({
   children,
@@ -7,7 +7,7 @@ export default function RootLayout({
 }>) {
   return (
     <ReactQueryProvider>
-      <GoogleSheetsProvider>{children}</GoogleSheetsProvider>
+      {children}
     </ReactQueryProvider>
   );
 }

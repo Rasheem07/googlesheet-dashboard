@@ -44,7 +44,10 @@ export const GoogleSheetsProvider = ({ children }: { children: ReactNode }) => {
     queryFn: async () => {
       // Make request to the server-side API route
       const response = await fetch(
-        `/api/getdata?spreadsheetId=${spreadsheetId}&range=${range}`
+        `/api/getdata?spreadsheetId=${spreadsheetId}&range=${range}`,
+        {
+          cache: 'no-store'
+        }
       );
       const data = await response.json();
 

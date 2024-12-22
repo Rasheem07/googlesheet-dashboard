@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSidebar } from "./ui/sidebar";
-import SalesData from "./chartCards/salesData";
-import SalesDataPersons from "./chartCards/salesDataPersons";
-import SalesDataByProductSection from "./chartCards/productSectionPieChart";
-import SalesDataProducts from "./chartCards/salesDataProductList";
+import SalesData from "./cards/chartCards/salesData";
+import SalesDataPersons from "./cards/chartCards/salesDataPersons";
+import SalesDataByProductSection from "./cards/chartCards/productSectionPieChart";
+import SalesDataProducts from "./cards/chartCards/salesDataProductList";
 import html2canvas from "html2canvas"; // Add html2canvas
 import jsPDF from "jspdf"; // Add jsPDF
 
