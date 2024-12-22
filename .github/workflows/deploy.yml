@@ -20,9 +20,10 @@ jobs:
 
     - name: Deploy to VM
       run: |
-          ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
-          cd /home/LENOVO/googlesheet-dashboard && \
-          git pull origin main && \
-          npm install --legacy-peer-deps && \
-          npm run build && \
-          pm2 restart nextjs-app
+        ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
+        "cd /home/LENOVO/googlesheet-dashboard && \
+        git pull origin main && \
+        npm install --legacy-peer-deps && \
+        npm run build && \
+        chmod +x ./pm2_runner.sh && \
+        bash ./pm2_runner.sh"
