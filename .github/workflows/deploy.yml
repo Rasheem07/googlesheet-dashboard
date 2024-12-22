@@ -18,14 +18,13 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # This is the secret you stored in GitHub
 
-   - name: Deploy to VM
-    run: |
-         ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
-         cd /home/LENOVO/googlesheet-dashboard && \
-         git fetch origin && \
-         git reset --hard origin/main && \
-         npm install --legacy-peer-deps && \
-         npm run build && \
-         chmod +x ./pm2_runner.sh && \
-         bash ./pm2_runner.sh"
-
+    - name: Deploy to VM
+      run: |
+        ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
+        "cd /home/LENOVO/googlesheet-dashboard && \
+        git fetch origin && \
+        git reset --hard origin/main && \
+        npm install --legacy-peer-deps && \
+        npm run build && \
+        chmod +x ./pm2_runner.sh && \
+        bash ./pm2_runner.sh"
