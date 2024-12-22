@@ -18,11 +18,15 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # This is the secret you stored in GitHub
 
+    - name: Verify pm2 installation
+      run: |
+        pm2 --version  # Verify if pm2 is installed and accessible
+
     - name: Deploy to VM
       run: |
-          ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
-          cd /home/LENOVO/googlesheet-dashboard && \
-          git pull origin main && \
-          npm install --legacy-peer-deps && \
-          npm run build && \
-          pm2 restart nextjs-app
+        ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
+        'cd /home/LENOVO/googlesheet-dashboard && \
+        git pull origin main && \
+        npm install --legacy-peer-deps && \
+        npm run build && \
+        pm2 restart nextjs-app || npx pm2 restart nextjs-app'  # Use npx if pm2 is not globally installed
