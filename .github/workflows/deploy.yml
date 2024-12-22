@@ -20,9 +20,9 @@ jobs:
 
     - name: Deploy to VM
       run: |
-          ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 
-          cd /home/LENOVO/googlesheet-dashboard &&
-          git pull origin main &&
-          npm install &&
-          npm run build &&
-          pm2 restart nextjs-app"
+          ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
+          cd /home/LENOVO/googlesheet-dashboard && \
+          git pull origin main && \
+          npm install && \
+          npm run build && \
+          pm2 restart nextjs-app
