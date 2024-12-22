@@ -23,6 +23,6 @@ jobs:
           ssh -v -o StrictHostKeyChecking=no LENOVO@34.18.97.231 \
           cd /home/LENOVO/googlesheet-dashboard && \
           git pull origin main && \
-          npm install && \
+          npm install --legacy-peer-deps && \
           npm run build && \
           pm2 restart nextjs-app
