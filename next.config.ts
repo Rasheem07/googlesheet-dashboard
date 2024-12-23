@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   experimental: {
     reactCompiler: true
-  }
+  },
   // headers: async () => {
   //   return [
   //     // Cache everything except src/app/api and src/actions

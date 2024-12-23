@@ -3,6 +3,7 @@
 
 import { OAuth2Client } from "google-auth-library";
 import { NextRequest, NextResponse } from "next/server";
+import { withCors } from "@/lib/cors"; // Adjust the import path according to your project structure
 
 // Initialize OAuth2 client
 const oauth2Client = new OAuth2Client(
@@ -11,7 +12,7 @@ const oauth2Client = new OAuth2Client(
   process.env.GOOGLE_REDIRECT_URI
 );
 
-export async function GET(req: NextRequest) {
+async function handler(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
 
@@ -24,17 +25,14 @@ export async function GET(req: NextRequest) {
     oauth2Client.setCredentials(tokens);
 
     // Set tokens in cookies
-    const response = NextResponse.json({ tokens });
-    response.cookies.set({
-      name: "google_tokens",
-      value: JSON.stringify(tokens),
+    const response = NextResponse.redirect("http://localhost:3000/en/dashboard");
+    response.cookies.set("google_tokens", JSON.stringify(tokens), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-      path: "/"
+      path: "/",
     });
-    return NextResponse.redirect('http://localhost:3000/en/dashboard');
-   
+    return response;
   } catch (error: any) {
     return NextResponse.json(
       {
@@ -45,3 +43,5 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export const GET = withCors(handler);

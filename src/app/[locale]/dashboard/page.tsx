@@ -33,26 +33,9 @@ interface SpreadsheetData {
 type Props = {};
 
 export default function Page({}: Props) {
-  const { data, isLoading } = useQuery<SpreadsheetData[]>({
-    queryKey: ["spreadsheet"],
-    queryFn: async () => {
-      const response = await fetch("/api/drive", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        cache: "no-store",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch spreadsheet data");
-      }
-
-      return response.json();
-    },
-  });
   return (
     <MaxWidthWrapper className="space-y-6 py-10 pt-[113px]">
-      <div className="absolute inset-0 h-full w-full  bg-[linear-gradient(to_right,#ccc_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] opacity-20 bg-[size:24px_24px]"></div>
+      <div className="absolute inset-0 h-full w-full  bg-[linear-gradient(to_right,#ccc_1px,transparent_1px),linear-gradient(to_bottom,#ccc_1px,transparent_1px)] opacity-10 bg-[size:32px_32px] "></div>
       <div className="space-y-4">
         <div className="flex items-center mb-4 w-full justify-between">
           {/* Main Dashboard Heading */}
@@ -64,7 +47,7 @@ export default function Page({}: Props) {
           </Button>
         </div>
 
-        <SpreadsheetCard data={data!} isLoading={isLoading} />
+        {/* <SpreadsheetCard /> */}
       </div>
       <div className="space-y-4">
         {/* Main Dashboard Heading */}
@@ -78,7 +61,7 @@ export default function Page({}: Props) {
             Icon={FileSpreadsheet}
             title="Total spreadsheets"
             description="Total number of spreadsheets"
-            value={data ? data?.length : 0}
+            value={0}
           />
           <OverviewCard
             Icon={Cloud}
@@ -139,13 +122,26 @@ import { Calendar } from "lucide-react";
 
 import { useState } from "react";
 
-function SpreadsheetCard({
-  data,
-  isLoading,
-}: {
-  data: SpreadsheetData[];
-  isLoading: boolean;
-}) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function SpreadsheetCard() {
+  const { data, isLoading } = useQuery<SpreadsheetData[]>({
+    queryKey: ["spreadsheet"],
+    queryFn: async () => {
+      const response = await fetch("/api/drive", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        cache: "no-store",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch spreadsheet data");
+      }
+
+      return await response.json();
+    },
+  });
+
   const [visibleItems, setVisibleItems] = useState<number>(4);
 
   const loadMore = () => {

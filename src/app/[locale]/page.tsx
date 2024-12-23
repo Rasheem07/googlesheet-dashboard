@@ -1,3 +1,4 @@
+'use client'
 import MaxWidthWrapper from "@/components/wrappers/maxWidthWrapper";
 import React from "react";
 import {
@@ -13,16 +14,29 @@ import {
 import GetStartedButton from "@/components/buttons/getSarted";
 import { TextEffect } from "@/components/ui/text-effect";
 import InfoIcon from "@/components/InfoIcon";
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+const variants = {
+  hidden: { opacity: 0, x: 0, y: -200 },
+  enter: { opacity: 1, x: 0, y: 0 },
+};
 
 export default function Page() {
   return (
-    <>
-      <div
-        className="fixed inset-0 min-h-screen min-w-screen bg-[radial-gradient(#ccc_1px,transparent_1.5px)] [background-size:24px_24px] isolate opacity-20"
-        aria-hidden
-      ></div>
-      <MaxWidthWrapper className="p-5 mt-[113px] z-10 h-full">
-        <div className="flex flex-col lg:flex-row items-center gap-y-6 gap-x-20 p-5 w-full z-10">
+    <motion.main
+      variants={variants}
+      initial="hidden"
+      animate="enter"
+      transition={{ type: "ease" }}
+      className="relative"
+    >
+      <MaxWidthWrapper className="p-5 mt-[113px] h-full">
+        <div
+          className="fixed inset-0 -z-10 min-h-screen min-w-screen bg-[radial-gradient(#ccc_1px,transparent_1.5px)] [background-size:24px_24px] opacity-20"
+          aria-hidden
+        ></div>
+        <div className="flex flex-col lg:flex-row items-center gap-y-6 gap-x-20 p-5 w-full">
           <div className="flex-1 space-y-6">
             <h1 className="text-3xl md:text-4xl font-bold font-mono text-primary dark:text-primary">
               <TextEffect
@@ -40,7 +54,7 @@ export default function Page() {
             <GetStartedButton />
           </div>
           <div className="flex-1 flex flex-col gap-y-4 max-w-sm">
-            <div className="flex flex-wrap justify-evenly gap-8 px-4 mt-8">
+            <div className="flex flex-wrap justify-evenly gap-6 px-4 pt-8 md:pt-0">
               {/* Real-Time Monitoring Icon */}
               <InfoIcon icon={Monitor} title="Real-Time Monitoring" size={75} />
               <InfoIcon icon={Bell} title="Alerts & Notifications" size={80} />
@@ -53,7 +67,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <div className="relative isolate">
+        <div className="relative">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-350px]"
@@ -67,7 +81,114 @@ export default function Page() {
             />
           </div>
         </div>
+        <div className="bg-zinc-600 shadow-inner z-50 rounded-lg p-2 border mt-24">
+          <Image
+            src="/dashify-demo.png"
+            alt="Dashify Demo"
+            height={607}
+            width={1349}
+            className="rounded-md w-full z-[999px]"
+          />
+        </div>
+        <div className="flex flex-col items-center mt-24">
+          <h1 className="text-4xl md:text-4xl font-bold font-mono text-primary dark:text-primary">
+            <TextEffect per="char" preset="scale" className="md:leading-[50px]">
+              Get started now!
+            </TextEffect>
+          </h1>
+          <p className="text-secondary dark:text-zinc-300 font-medium mt-2">
+            Effortlessly transform your data into actionable insights.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6 mt-8">
+            <StepCard
+              step={1}
+              heading="Start by logging with google"
+              description="By doing this, your google sheets are being synced to our platform"
+            />
+            <StepCard
+              step={2}
+              heading="Select a spreadsheet book"
+              description="You will be redirected to a form, to customize your dashboard and analytics tools"
+            />
+            <StepCard
+              step={3}
+              heading="Fill in the form and submit it"
+              description="After filling the form , your dashboard is being generated, that's it!"
+            />
+          </div>
+        </div>
+        <TestimonialsComponent />
       </MaxWidthWrapper>
-    </>
+    </motion.main>
+  );
+}
+
+function StepCard({
+  step,
+  heading,
+  description,
+}: {
+  step: number;
+  heading: string;
+  description: string;
+}) {
+  return (
+    <div className="bg-white dark:bg-card border-l-4 md:border-l-0 md:border-t-4 border-emerald-500 dark:border-emerald-600 rounded-lg shadow-md p-6 space-y-4">
+      <div className="flex items-center space-x-3">
+        <span className="text-emerald-500 text-lg font-semibold">Step {step}</span>
+        {/* Add a divider for better visual separation */}
+        <div className="w-1 h-6 bg-emerald-500 dark:bg-emerald-600" />
+      </div>
+
+      <h3 className="text-2xl font-semibold text-primary dark:text-primary">
+        {heading}
+      </h3>
+
+      <p className="text-base text-zinc-600 dark:text-zinc-300">
+        {description}
+      </p>
+    </div>
+  );
+}
+
+
+// pages/index.js
+import Testimonial from "@/components/testimonial";
+
+const testimonials = [
+  {
+    id: 1,
+    name: "John Doe",
+    title: "CEO at Company",
+    text: "This is an amazing product! Highly recommended.",
+    image: "/dp.jpg",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    title: "CTO at Business",
+    text: "Excellent service and fantastic results!",
+    image: "/dp.jpg",
+  },
+  {
+    id: 3,
+    name: "Jane Smith",
+    title: "CTO at Business",
+    text: "Excellent service and fantastic results!",
+    image: "/dp.jpg",
+  },
+  // Add more testimonials here
+];
+
+function TestimonialsComponent() {
+  return (
+    <div className="container mx-auto py-12 w-full">
+      <h2 className="text-2xl font-bold text-center mb-8">Testimonials</h2>
+      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {testimonials.map((testimonial) => (
+          <Testimonial key={testimonial.id} testimonial={testimonial} />
+        ))}
+      </div>
+    </div>
   );
 }

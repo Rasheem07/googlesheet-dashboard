@@ -1,3 +1,4 @@
+"use client";
 import { type LucideIcon } from "lucide-react";
 import React from "react";
 import {
@@ -6,26 +7,28 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
+import { motion } from "framer-motion";
 type Props = {
   icon: LucideIcon;
   title: string;
   size: number;
 };
 
-export default function InfoIcon({ title, icon: Icon , size}: Props) {
+export default function InfoIcon({ title, icon: Icon, size }: Props) {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
         <TooltipTrigger>
           {" "}
           {/* Cloud Sync Icon */}
-          <Icon
-            className="text-primary  dark:text-zinc-300 cursor-pointer hover:text-emerald-500 dark:hover:text-emerald-600 transition-all transform hover:scale-150 duration-300"
-            size={size}
-          />
+          <motion.div whileHover={{scale: 1.5}}>
+            <Icon
+              className="text-primary  dark:text-zinc-300 cursor-pointer hover:text-emerald-500 dark:hover:text-emerald-600 transition-colors"
+              size={size}
+            />
+          </motion.div>
         </TooltipTrigger>
-        <TooltipContent >
+        <TooltipContent>
           <p className="text-lg">{title}</p>
         </TooltipContent>
       </Tooltip>

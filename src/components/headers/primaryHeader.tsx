@@ -13,7 +13,8 @@ import { useMainContext } from "@/contexts/mainContext";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Lightbulb, Moon } from "lucide-react";
-import { Button } from "../ui/button";
+import Image from "next/image";
+
 
 export default function PrimaryHeader() {
   const { language, theme, toggleTheme, toggleLanguage } = useMainContext();
@@ -56,7 +57,7 @@ export default function PrimaryHeader() {
 
   const t = useTranslations("analytics");
   return (
-    <MaxWidthWrapper className="flex items-center justify-between w-full py-4 border-b dark:border-gray-800 border-gray-300 backdrop-blur-xl  shadow-lg z-10 fixed top-0 inset-x-0">
+    <MaxWidthWrapper className="flex items-center justify-between w-full py-4 border-b dark:border-gray-800 border-emerald-300 backdrop-blur-xl  shadow-lg z-10 fixed top-0 inset-x-0">
       <h1 className="flex items-center gap-x-2 font-bold text-lg text-primary dark:text-primary">
         <span className="h-8 w-8 rounded-full shadow-inner bg-zinc-300" />
         Al nubras
@@ -109,8 +110,11 @@ export default function PrimaryHeader() {
           <div className="min-h-10 w-10 min-w-10 bg-zinc-400 rounded-full"></div>
         </div>
       ) : (
-        <Link prefetch href="http://localhost:3000/api/auth">
-          <Button className="bg-emerald-500 tracking-wide  text-white hover:bg-emerald-600">Login with google</Button>
+        <Link prefetch href="/api/auth">
+          <button type="button" className="flex items-center px-3 gap-x-1.5 bg-white text-gray-950 py-2 rounded-sm text-sm tracking-wider">
+            <Image src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=' alt='G' width={16} height={16}/>
+            Sign in with Google
+          </button>
         </Link>
       )}
     </MaxWidthWrapper>
