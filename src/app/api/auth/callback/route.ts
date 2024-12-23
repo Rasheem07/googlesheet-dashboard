@@ -33,7 +33,8 @@ export async function GET(req: NextRequest) {
       sameSite: "lax",
       path: "/"
     });
-    return response;
+    return NextResponse.redirect('http://localhost:3000/en/dashboard');
+   
   } catch (error: any) {
     return NextResponse.json(
       {

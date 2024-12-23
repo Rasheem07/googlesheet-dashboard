@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import RefetchProgressDialog from "../progressBar";
+import RefetchProgressDialog from "../dailogs/progressBar";
 
 const playfair = Roboto({
   subsets: ["latin"],

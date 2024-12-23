@@ -8,23 +8,28 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 /** @type {import('next').NextConfig} */
+
 const nextConfig: NextConfig = {
   // Your existing Next.js configuration
   compress: true,
-  headers: async () => {
-    return [
-      // Cache everything except src/app/api and src/actions
-      {
-        source: '/(.*)',  // Matches all routes
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',  // Cache for 1 year
-          },
-        ],
-      },
-    ];
-  },
+  reactStrictMode: true,
+  experimental: {
+    reactCompiler: true
+  }
+  // headers: async () => {
+  //   return [
+  //     // Cache everything except src/app/api and src/actions
+  //     {
+  //       source: '/(.*)',  // Matches all routes
+  //       headers: [
+  //         {
+  //           key: 'Cache-Control',
+  //           value: 'public, max-age=31536000, immutable',  // Cache for 1 year
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 };
 
 export default bundleAnalyzer(withNextIntl(nextConfig));

@@ -11,7 +11,7 @@ export default function MaxWidthWrapper({ children, className }: Props) {
   return (
     <div
       className={cn(
-        `px-2.5 md:px-20 w-full mx-auto max-w-screen-2xl`,
+        `px-5 md:px-20 w-full mx-auto max-w-screen-2xl`,
         className
       )}
     >

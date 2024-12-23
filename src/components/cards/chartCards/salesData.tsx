@@ -13,7 +13,7 @@ import {
   startOfYear,
 } from "date-fns";
 import { useAnalyticsContext } from "@/contexts/analyticsContext";
-import ChartCard from "@/components/chart-card";
+import ChartCard from "@/components/cards/chart-card";
 import {
   CartesianGrid,
   Legend,

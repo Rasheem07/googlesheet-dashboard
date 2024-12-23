@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
 import Header from "@/components/headers/secondaryHeader";
 import AnalyticsContextProvider from "@/contexts/analyticsContext";
 import { GoogleSheetsProvider } from "@/contexts/googlesheetContext";

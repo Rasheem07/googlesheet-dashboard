@@ -2,10 +2,10 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Metadata } from "next";
-import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { MainContextProvider } from "@/contexts/mainContext";
 import { getMessages } from "next-intl/server";
+import PrimaryHeader from "@/components/headers/primaryHeader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +43,7 @@ export default async function LocaleLayout({
           <body
             className={`${geistSans.variable} ${geistMono.variable} dark antialiased transition-colors`}
           >
+            <PrimaryHeader />
             {children}
           </body>
         </html>

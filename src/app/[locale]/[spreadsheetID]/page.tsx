@@ -4,7 +4,7 @@ import { DollarSign, Loader2, TrendingDown, TrendingUp } from "lucide-react";
 import dynamic from "next/dynamic";
 import { endOfWeek, endOfYear, startOfWeek, startOfYear } from "date-fns";
 
-import OverviewCard from "@/components/overviewCard";
+import OverviewCard from "@/components/cards/overviewCard";
 import DateSelector from "@/components/buttons/dateSelector";
 import OrderStatus from "@/components/buttons/orderStatus";
 import ProductListButton from "@/components/buttons/productList";

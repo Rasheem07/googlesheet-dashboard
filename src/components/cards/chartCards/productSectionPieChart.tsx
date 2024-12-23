@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { groupByProductSection } from "@/utils/productSection";
 import { useAnalyticsContext } from "@/contexts/analyticsContext";
-import ChartCard from "@/components/chart-card";
+import ChartCard from "@/components/cards/chart-card";
 import {
   PieChart,
   Pie,

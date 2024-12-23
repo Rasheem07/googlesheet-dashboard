@@ -86,3 +86,73 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.dotted-background {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+              radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px;
+}
+
+
+@layer utilities {
+  @keyframes scanning {
+    0% {
+      transform: translateX(-100%) rotate(60deg);
+    }
+    100% {
+      transform: translateX(100%) rotate(60deg);
+    }
+  }
+  .getStartedbtn {
+    position: relative; 
+  }
+  
+  .getStartedbtn:hover .getStartedbtn::before {
+    content: ""; /* Required to make the pseudo-element visible */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width of the button */
+    height: 100%; /* Full height of the button */
+    background-color: #ffffff; /* Color of the scanning effect */
+    transform: rotate(60deg); /* Adjust rotation angle */
+    animation: scanning 2s linear infinite; /* Add scanning animation */
+  }
+
+  @keyframes ringAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .card-wrapper {
+    @apply relative inline-block overflow-hidden p-1;
+  }
+
+  .card-ring {
+    background: conic-gradient(
+      rgba(16, 185, 129, 0.5) 0deg,
+      rgba(16, 185, 129, 0.5) 90deg,
+      transparent 90deg,
+      transparent 180deg,
+      rgba(16, 185, 129, 0.5) 180deg,
+      rgba(16, 185, 129, 0.5) 270deg,
+      transparent 270deg,
+      transparent 360deg
+    );
+
+    @apply absolute top-0 left-0 right-0 bottom-0 m-[-2px] rounded-lg animate-ringAnimation;
+    padding: 1px;
+    box-sizing: border-box;
+  }
+
+  .animate-ringAnimation {
+    animation: ringAnimation 2s linear infinite;
+  }
+
+  
+}
