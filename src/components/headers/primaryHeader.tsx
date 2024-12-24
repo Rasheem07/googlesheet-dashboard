@@ -12,7 +12,7 @@ import {
 import { useMainContext } from "@/contexts/mainContext";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Lightbulb, Moon } from "lucide-react";
+import { ChartLine, Lightbulb, Moon } from "lucide-react";
 import Image from "next/image";
 
 
@@ -58,9 +58,10 @@ export default function PrimaryHeader() {
   const t = useTranslations("analytics");
   return (
     <MaxWidthWrapper className="flex items-center justify-between w-full py-4 border-b dark:border-gray-800 border-emerald-300 backdrop-blur-xl  shadow-lg z-10 fixed top-0 inset-x-0">
-      <h1 className="flex items-center gap-x-2 font-bold text-lg text-primary dark:text-primary">
-        <span className="h-8 w-8 rounded-full shadow-inner bg-zinc-300" />
-        Al nubras
+      <h1 className="flex items-center gap-x-2 font-bold text-lg text-primary dark:text-primary px-2">
+        {/* <span className="h-8 w-8 rounded-full shadow-inner bg-zinc-300" /> */}
+        <ChartLine />
+        Dashify
       </h1>
       <div className="items-center gap-x-8 hidden md:flex">
         <Link

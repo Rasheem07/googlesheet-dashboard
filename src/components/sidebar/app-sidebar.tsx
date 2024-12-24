@@ -68,9 +68,9 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-r-gray-300">
+    <Sidebar  collapsible="icon" className="border-r border-r-gray-300">
       <SidebarHeader className="flex gap-x-4">
-        <SidebarTrigger className="self-end bg-blue-500 dark:bg-blue-700 hover:bg-blue-600" />
+        <SidebarTrigger className="self-end mb-4" />
         <SpreadsheetSwitcher teams={teams} />
       </SidebarHeader>
       <SidebarContent>

@@ -17,17 +17,18 @@ interface TestimonialProps {
 const TestimonialCard = ({ testimonial }: TestimonialProps) => (
   <motion.div
     drag
+    dragConstraints={{top: 0, bottom: 0, left: 0, right: 0}}
     initial={{ opacity: 0, y: 50 }}
     animate={{ opacity: 1, y: 0 }}
     whileHover={{ scale: 1.05 }}
     transition={{ duration: 0.3 }}
-    className="min-h-full"
+    className="min-h-full cursor-grab"
   >
-    <Card className="bg-white min-h-full dark:bg-card rounded-xl shadow-lg relative overflow-hidden p-6 space-y-6">
+    <Card className="bg-white dark:bg-zinc-900/80 min-h-full rounded-xl shadow-lg relative overflow-hidden p-6 space-y-6">
       <CardContent className="p-0">
         <div className="flex flex-col items-center space-y-4">
           <Image
-            className="w-24 h-24 mb-4 rounded-full shadow-md object-cover"
+            className="w-16 h-16 rounded-full shadow-md object-contain bg-zinc-200"
             src={testimonial.image}
             alt=''
             height={60}

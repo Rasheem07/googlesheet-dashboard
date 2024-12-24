@@ -17,7 +17,7 @@ async function SpreadsheetLayout({
 }>) {
   return (
     <GoogleSheetsProvider>
-      <SidebarProvider className="flex">
+      <SidebarProvider defaultOpen={false} className="flex">
         <AnalyticsContextProvider>
           <AppSidebar />
           <main className="w-full min-w-screen sm:min-w-0 relative">

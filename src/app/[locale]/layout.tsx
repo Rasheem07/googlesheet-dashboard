@@ -41,7 +41,7 @@ export default async function LocaleLayout({
       <MainContextProvider>
         <html lang={locale}>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} dark antialiased transition-colors`}
+            className={`${geistSans.variable}  ${geistMono.variable} dark antialiased transition-colors`}
           >
             <PrimaryHeader />
             {children}

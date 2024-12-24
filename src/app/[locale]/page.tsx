@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import MaxWidthWrapper from "@/components/wrappers/maxWidthWrapper";
 import React from "react";
 import {
@@ -12,7 +12,6 @@ import {
   PieChart,
 } from "lucide-react";
 import GetStartedButton from "@/components/buttons/getSarted";
-import { TextEffect } from "@/components/ui/text-effect";
 import InfoIcon from "@/components/InfoIcon";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -36,16 +35,11 @@ export default function Page() {
           className="fixed inset-0 -z-10 min-h-screen min-w-screen bg-[radial-gradient(#ccc_1px,transparent_1.5px)] [background-size:24px_24px] opacity-20"
           aria-hidden
         ></div>
-        <div className="flex flex-col lg:flex-row items-center gap-y-6 gap-x-20 p-5 w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-y-6 gap-x-20 p-2 md:p-5 w-full">
           <div className="flex-1 space-y-6">
             <h1 className="text-3xl md:text-4xl font-bold font-mono text-primary dark:text-primary">
-              <TextEffect
-                per="char"
-                preset="scale"
-                className="md:leading-[50px]"
-              >
-                Turn your google sheets into interactive dashboards
-              </TextEffect>
+              Turn your <HeiglightText>google sheets</HeiglightText> into
+              interactive dashboards
             </h1>
             <p className="text-secondary dark:text-zinc-300 font-medium">
               Effortlessly transform your data into actionable insights. Set
@@ -53,7 +47,7 @@ export default function Page() {
             </p>
             <GetStartedButton />
           </div>
-          <div className="flex-1 flex flex-col gap-y-4 max-w-sm">
+          <div className="flex-1 hidden md:flex flex-col gap-y-4 max-w-sm">
             <div className="flex flex-wrap justify-evenly gap-6 px-4 pt-8 md:pt-0">
               {/* Real-Time Monitoring Icon */}
               <InfoIcon icon={Monitor} title="Real-Time Monitoring" size={75} />
@@ -81,7 +75,7 @@ export default function Page() {
             />
           </div>
         </div>
-        <div className="bg-zinc-600 shadow-inner z-50 rounded-lg p-2 border mt-24">
+        <div className="dark:bg-zinc-500/80 shadow-inner z-50 rounded-lg p-2 border mt-24">
           <Image
             src="/dashify-demo.png"
             alt="Dashify Demo"
@@ -90,13 +84,26 @@ export default function Page() {
             className="rounded-md w-full z-[999px]"
           />
         </div>
+
+        <Features />
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-[200px]"
+          >
+            <div
+              style={{
+                clipPath: "polygon(75% 40%,0% 100%,85% 0%, 70% 25%, 55% 55%)",
+              }}
+              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400 dark:opacity-20 opacity-30 sm:left-[calc(50%)] sm:w-[72.1875rem]"
+            />
+          </div>
+        </div>
         <div className="flex flex-col items-center mt-24">
           <h1 className="text-4xl md:text-4xl font-bold font-mono text-primary dark:text-primary">
-            <TextEffect per="char" preset="scale" className="md:leading-[50px]">
-              Get started now!
-            </TextEffect>
+            Simple <HeiglightText>Steps</HeiglightText> to setup your dashboard
           </h1>
-          <p className="text-secondary dark:text-zinc-300 font-medium mt-2">
+          <p className="text-secondary dark:text-zinc-300 font-medium mt-4">
             Effortlessly transform your data into actionable insights.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-6 mt-8">
@@ -117,8 +124,44 @@ export default function Page() {
             />
           </div>
         </div>
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-24"
+          >
+            <div
+              style={{
+                clipPath: "polygon(70% 25%, 55% 55%)",
+              }}
+              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400 dark:opacity-20 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            />
+          </div>
+        </div>
+        <div className="relative">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-24"
+        >
+          <div
+            style={{
+              clipPath: "polygon(70% 25%, 55% 55%)",
+            }}
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400 dark:opacity-20 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          />
+        </div>
+      </div>
         <TestimonialsComponent />
+        <div className="flex justify-between items-center mt-16">
+          <div className="flex flex-col gap-y-5">
+            <h1 className="text-4xl font-mono font-bold text-primary dark:text-primary">
+              Frequently asked questions
+            </h1>
+            <FAQ />
+          </div>
+          <NewsletterCard />
+        </div>
       </MaxWidthWrapper>
+      <Footer />
     </motion.main>
   );
 }
@@ -133,9 +176,11 @@ function StepCard({
   description: string;
 }) {
   return (
-    <div className="bg-white dark:bg-card border-l-4 md:border-l-0 md:border-t-4 border-emerald-500 dark:border-emerald-600 rounded-lg shadow-md p-6 space-y-4">
+    <div className="bg-white dark:bg-zinc-900/80 border-l-4 md:border-l-0 md:border-t-4 border-emerald-500 dark:border-emerald-600 rounded-lg shadow-md p-6 space-y-4">
       <div className="flex items-center space-x-3">
-        <span className="text-emerald-500 text-lg font-semibold">Step {step}</span>
+        <span className="text-emerald-500 text-lg font-semibold">
+          Step {step}
+        </span>
         {/* Add a divider for better visual separation */}
         <div className="w-1 h-6 bg-emerald-500 dark:bg-emerald-600" />
       </div>
@@ -151,9 +196,13 @@ function StepCard({
   );
 }
 
-
 // pages/index.js
 import Testimonial from "@/components/testimonial";
+import Features from "@/components/Features";
+import Footer from "@/components/Footer";
+import { FAQ } from "@/components/FAQ";
+import NewsletterCard from "@/components/cards/newLetter";
+import HeiglightText from "@/components/ui/highlighter";
 
 const testimonials = [
   {
@@ -182,8 +231,10 @@ const testimonials = [
 
 function TestimonialsComponent() {
   return (
-    <div className="container mx-auto py-12 w-full">
-      <h2 className="text-2xl font-bold text-center mb-8">Testimonials</h2>
+    <div className="container mx-auto py-12 w-full mt-16">
+      <h2 className="text-4xl font-mono font-bold text-center mb-8">
+        What our <HeiglightText>clients</HeiglightText> say:
+      </h2>
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {testimonials.map((testimonial) => (
           <Testimonial key={testimonial.id} testimonial={testimonial} />
