@@ -95,7 +95,7 @@ export default function Page() {
               style={{
                 clipPath: "polygon(75% 40%,0% 100%,85% 0%, 70% 25%, 55% 55%)",
               }}
-              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400 dark:opacity-20 opacity-30 sm:left-[calc(50%)] sm:w-[72.1875rem]"
+              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400 dark:opacity-30 opacity-30 sm:left-[calc(50%)] sm:w-[72.1875rem]"
             />
           </div>
         </div>
@@ -151,9 +151,9 @@ export default function Page() {
         </div>
       </div>
         <TestimonialsComponent />
-        <div className="flex justify-between items-center mt-16">
+        <div className="flex gap-y-12 md:gap-y-0 md:flex-row flex-col justify-between md:items-center mt-16">
           <div className="flex flex-col gap-y-5">
-            <h1 className="text-4xl font-mono font-bold text-primary dark:text-primary">
+            <h1 className="text-2xl md:text-4xl font-mono font-bold text-primary dark:text-primary">
               Frequently asked questions
             </h1>
             <FAQ />
