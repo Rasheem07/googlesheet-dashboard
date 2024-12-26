@@ -16,6 +16,9 @@ export async function GET() {
     scope: [
       "https://www.googleapis.com/auth/spreadsheets.readonly",
       "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/drive.file", // Additional scope for file operations
+      "https://www.googleapis.com/auth/drive.appdata", // Scope to access the Application Data folder
+      "https://www.googleapis.com/auth/drive.metadata", // Scope to access metadata
     ],
   });
 

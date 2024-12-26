@@ -1,10 +1,10 @@
 "use client";
 import MaxWidthWrapper from "@/components/wrappers/maxWidthWrapper";
-import { Button } from "@/components/ui/button";
 import { Cloud, Eye, FileSpreadsheet } from "lucide-react";
 import React from "react";
 import OverviewCard from "@/components/cards/MainOverviewCard";
 import SpreadsheetCard from "@/components/cards/spreadsheetCard";
+import UploadSpreadsheet from "@/components/uploadSpreadsheet";
 
 // Define the types for the data structure
 
@@ -14,16 +14,19 @@ type Props = {};
 export default function Page({}: Props) {
   return (
     <MaxWidthWrapper className="space-y-6 py-10 pt-[113px]">
-      <div className="absolute inset-0 h-full w-full  bg-[linear-gradient(to_right,#ccc_1px,transparent_1px),linear-gradient(to_bottom,#ccc_1px,transparent_1px)] opacity-5 bg-[size:48px_48px] "></div>
+      <div
+        className="absolute inset-0 h-full w-full  bg-[linear-gradient(to_right,#ccc_1px,transparent_1px),linear-gradient(to_bottom,#ccc_1px,transparent_1px)] opacity-5 bg-[size:48px_48px] -z-10"
+        aria-hidden
+      ></div>
       <div className="space-y-4">
         <div className="flex items-center mb-4 w-full justify-between">
           {/* Main Dashboard Heading */}
           <h1 className="md:text-2xl text-xl font-semibold text-card-title-light dark:text-card-title-dark  pl-2">
-            Spreadsheets books
+            Spreadsheet Work books
           </h1>
-          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">
-            Upload <span className="md:block hidden">a new spreadsheet</span>
-          </Button>
+          <div className="flex items-center gap-x-4">
+            <UploadSpreadsheet />
+          </div>
         </div>
 
         <SpreadsheetCard />

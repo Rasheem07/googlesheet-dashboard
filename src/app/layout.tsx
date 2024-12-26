@@ -7,8 +7,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ReactQueryProvider>
-      {children}
-    </ReactQueryProvider>
+    <html>
+      <body>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
+      </body>
+    </html>
   );
 }

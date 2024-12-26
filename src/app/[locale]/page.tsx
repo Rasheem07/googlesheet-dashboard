@@ -138,18 +138,18 @@ export default function Page() {
           </div>
         </div>
         <div className="relative">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-24"
-        >
           <div
-            style={{
-              clipPath: "polygon(70% 25%, 55% 55%)",
-            }}
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400 dark:opacity-20 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          />
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-24"
+          >
+            <div
+              style={{
+                clipPath: "polygon(70% 25%, 55% 55%)",
+              }}
+              className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-emerald-500 to-green-500 dark:from-emerald-400 dark:to-green-400 dark:opacity-20 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            />
+          </div>
         </div>
-      </div>
         <TestimonialsComponent />
         <div className="flex gap-y-12 md:gap-y-0 md:flex-row flex-col justify-between md:items-center mt-16">
           <div className="flex flex-col gap-y-5">

@@ -9,13 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  CloudFog,
-  Download,
-  Share,
-  Trash,
-} from "lucide-react";
+import { CloudFog, Download, Share, Trash } from "lucide-react";
 import { SpreadsheetData } from "@/types/spreadsheetData";
+import { Skeleton } from "../ui/skeleton";
 
 export default function SpreadsheetCard() {
   const { data = [], isLoading } = useQuery<SpreadsheetData[]>({
@@ -43,12 +39,19 @@ export default function SpreadsheetCard() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-6 transition">
+        <SkeletonLoader />
+        <SkeletonLoader />
+        <SkeletonLoader />
+        <SkeletonLoader />
+      </div>
+    );
   }
 
   if (data.length === 0) {
     return (
-      <div className="flex w-full justify-center my-16">
+      <div className="flex w-full justify-center my-24">
         <div className="flex items-center flex-col gap-y-4 text-primary dark:text-primary text-lg font-mono">
           <CloudFog size={60} />
           No spreadsheet Available on your google account
@@ -87,7 +90,7 @@ export default function SpreadsheetCard() {
               <h3 className="text-lg font-semibold text-primary dark:text-primary flex items-center gap-x-4 mt-3">
                 Size:
                 <strong className="text-zinc-400">
-                  {spreadsheet.size.toFixed(2)} KB
+                  {parseFloat(spreadsheet.size?.toString()).toFixed(2)} KB
                 </strong>
               </h3>
             </CardContent>
@@ -131,9 +134,56 @@ export default function SpreadsheetCard() {
       </div>
       {visibleItems < data.length && (
         <div className="flex justify-center mt-6">
-          <Button onClick={loadMore}>Load More</Button>
+          <Button
+            onClick={loadMore}
+            disabled={visibleItems === data.length}
+            className="disabled:opacity-85"
+          >
+            Load More
+          </Button>
         </div>
       )}
+    </div>
+  );
+}
+
+function SkeletonLoader() {
+  return (
+    <div className="bg-card dark:bg-card shadow-xl rounded-lg overflow-hidden transform transition-transform duration-300">
+      <div className="px-6 py-4">
+        <Skeleton className="w-[60%] h-6 mb-2 bg-zinc-700 rounded-md" />{" "}
+        {/* Title Skeleton */}
+        <Skeleton className="w-[40%] h-4 bg-zinc-700 rounded-md" />{" "}
+        {/* Description Skeleton */}
+      </div>
+
+      <div className="px-6 py-4">
+        <div className="flex items-center gap-x-4 mb-3">
+          <Skeleton className="w-1/3 h-5 bg-zinc-700 rounded-md" />{" "}
+          {/* Sheets count skeleton */}
+        </div>
+        <div className="flex items-center gap-x-4">
+          <Skeleton className="w-1/4 h-5 bg-zinc-700 rounded-md" />{" "}
+          {/* Size skeleton */}
+        </div>
+      </div>
+
+      <div className="flex justify-between items-center p-4 border-t shadow-inner border-border dark:border-border rounded-b-lg">
+        <div className="flex items-center text-sm">
+          <Skeleton className="w-6 h-6 rounded-full bg-zinc-700" />{" "}
+          {/* Calendar Icon Skeleton */}
+          <Skeleton className="ml-2 w-1/2 h-4 bg-zinc-700 rounded-md" />{" "}
+          {/* Last Updated Skeleton */}
+        </div>
+        <div className="flex items-center gap-x-4">
+          <Skeleton className="w-8 h-8 rounded-md bg-zinc-700" />{" "}
+          {/* Share button skeleton */}
+          <Skeleton className="w-8 h-8 rounded-md bg-zinc-700" />{" "}
+          {/* Download button skeleton */}
+          <Skeleton className="w-8 h-8 rounded-md bg-zinc-700" />{" "}
+          {/* Trash button skeleton */}
+        </div>
+      </div>
     </div>
   );
 }
